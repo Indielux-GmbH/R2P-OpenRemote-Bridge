@@ -1,0 +1,4 @@
+paho-mqtt==1.6.1
+pysondb==1.6.7
+requests==2.31.0
+PyInstaller==5.12.0

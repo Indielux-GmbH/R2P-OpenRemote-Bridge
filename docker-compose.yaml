@@ -1,0 +1,12 @@
+version: "3"
+services:
+  r2porbridge:
+    image: "r2p-or-bridge:0.0.1"
+    restart: always
+    volumes:
+      - "./Docker/app/code/config.ini:/app/code/config.ini"
+      - "./Docker/app/code/or-client.ini:/app/code/or-client.ini"
+    logging:
+      driver: "syslog"
+      options:
+        tag: r2porbridge

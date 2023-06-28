@@ -1,0 +1,11 @@
+[mqtt]
+host = your.DOMAIN.tld
+port = your_Port
+ca_certs = relative_path_to_ca_certs
+certfile = relative_path_to_certfile
+keyfile = relative_path_to_keyfile
+topic = topic_to_subscribe_to
+
+[logging]
+# DEBUG INFO WARNING ERROR CRITICAL
+level = INFO

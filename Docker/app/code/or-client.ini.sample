@@ -1,0 +1,10 @@
+[mqtt]
+host = yourOR.DOMAIN.TLD
+port = YOUR_OR_MQTT_PORT
+ca_certs = relative_path_to_OR_ca_certs
+; certfile = certs/client/SYS_BRIDGE-R2P-OR.crt
+; keyfile = certs/client/SYS_BRIDGE-R2P-OR_NOPASS.key
+
+[openremote]
+client_id = SERVICE_USER_NAME
+client_secret = SUPER_SECURE_PASSWORD

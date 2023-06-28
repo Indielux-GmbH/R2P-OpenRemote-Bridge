@@ -1,0 +1,8 @@
+Docker/app/code/certs/client/
+Docker/app/code/certs/server/
+__pycache__/
+build/*
+dist/*
+main.spec
+config.ini
+or-client.ini

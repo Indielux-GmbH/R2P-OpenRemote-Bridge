@@ -7,7 +7,6 @@ services:
       - "./Docker/app/code/config.ini:/app/code/config.ini"
       - "./Docker/app/code/or-client.ini:/app/code/or-client.ini"
       - "./Docker/app/code/assetDB.json:/app/code/assetDB.json"
-      - "./Docker/app/code/assetDB.json.lock:/app/code/assetDB.json"
     logging:
       driver: "syslog"
       options:

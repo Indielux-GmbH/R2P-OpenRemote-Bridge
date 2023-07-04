@@ -2,6 +2,7 @@ import requests
 import json
 import sys
 import configparser
+import time
 from pysondb import db
 from logging import getLogger
 from logger.main import Logger as Logger
@@ -50,11 +51,22 @@ def createAsset(assetName):
     rData = {'name':f'{assetName}','type':'ThingAsset','realm':'master','attributes':{'notes':{'name':'notes','type':'text'},'location':{'name':'location','type':'GEO_JSONPoint'},'subscribeAttribute':{'name':'subscribeAttribute','type':'boolean'},'tele':{'name':'tele','type':'JSONObject'}}}
     rHeaders = {'Authorization': f'Bearer {thismodule.apitoken}'}
     r = requests.post(url=rURL, json=rData, headers=rHeaders)
-    updateAssetStatus = updateAsset(json.loads(r.content)["id"], assetName)
     
     # Create a Service User for the newly created Asset
     user = createUser(json.loads(r.content)["id"])
-    linkAssetToUser(userid=user['userid'], assetid=json.loads(r.content)['id'])
+    assetLinkStatus = linkAssetToUser(userid=user['userid'], assetid=json.loads(r.content)['id'])
+    
+    # Update Asset to contain the Attribute links
+    timeout = 5.0
+    while r.status_code != 200 and user["status_code"] != 200 and assetLinkStatus != 204:
+        time.sleep(0.1)
+        timeout = timeout-0.1
+        if timeout <= 0:
+            getLogger(__name__).error("Could not verify that Device got created sucessfully, please investigate!")
+            break
+    else:
+        getLogger(__name__).info("Device created, Service User created, linked Service User to asset")
+    updateAssetStatus = updateAsset(json.loads(r.content)["id"], assetName)
     thismodule.db.add({'assetid': f'{json.loads(r.content)["id"]}',
                        'assetname': f'{assetName}',
                        'userid': f'{user["userid"]}',
